@@ -46,3 +46,8 @@ plt.xlabel('Number of Clusters')
 plt.ylabel('WCSS')
 plt.grid()
 plt.show()
+
+# Apply K-Means Clustering
+# From the elbow plot, choose an optimal number of clusters (e.g., 3 or 4)
+kmeans = KMeans(n_clusters=3, init='k-means++', random_state=42)
+data['Cluster'] = kmeans.fit_predict(data_scaled)
