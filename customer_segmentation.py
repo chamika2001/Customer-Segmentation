@@ -5,17 +5,21 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+import os
 
 # Step 2: Load and Explore the Dataset
-# Use a CSV file named "customer_data.csv" for this example.
-# Replace the file path with your dataset location.
-try:
-    data = pd.read_csv("customer_data.csv")  # Add your dataset file here
-except FileNotFoundError:
-    print("Dataset not found! Please check the file path.")
+# Replace the file path with the actual location of your dataset
+dataset_path = "customer_data.csv"  # Make sure this file is in your project folder
 
-# Display basic info about the dataset
-print("Dataset Head:\n", data.head())
+try:
+    data = pd.read_csv(dataset_path)
+    print("Dataset loaded successfully!")
+except FileNotFoundError:
+    print(f"Dataset not found at {dataset_path}. Please check the file path.")
+    exit()
+
+# Display the first few rows of the dataset
+print("\nDataset Head:\n", data.head())
 print("\nDataset Info:\n")
 print(data.info())
 
@@ -23,12 +27,13 @@ print(data.info())
 # Check for missing values
 print("\nMissing Values:\n", data.isnull().sum())
 
-# Selecting relevant features for clustering
+# Select relevant features
 features = ['Age', 'Annual Income (k$)', 'Spending Score (1-100)']
+data_features = data[features]
 
-# Standardizing the data
+# Standardize the features
 scaler = StandardScaler()
-data_scaled = scaler.fit_transform(data[features])
+data_scaled = scaler.fit_transform(data_features)
 
 # Step 4: Determine the Optimal Number of Clusters using Elbow Method
 wcss = []  # Within-cluster sum of squares
@@ -38,18 +43,24 @@ for i in range(1, 11):
     kmeans.fit(data_scaled)
     wcss.append(kmeans.inertia_)
 
-# Plot the Elbow Method
+# Create an output folder for saving images
+output_folder = "images"
+os.makedirs(output_folder, exist_ok=True)
+
+# Save the Elbow Method plot
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, 11), wcss, marker='o', linestyle='--')
 plt.title('Elbow Method')
 plt.xlabel('Number of Clusters')
 plt.ylabel('WCSS')
 plt.grid()
+plt.savefig(os.path.join(output_folder, "elbow_method.png"))
 plt.show()
 
 # Step 5: Apply K-Means Clustering
-# From the elbow plot, choose an optimal number of clusters (e.g., 3 or 4)
-kmeans = KMeans(n_clusters=3, init='k-means++', random_state=42)
+# Choose the optimal number of clusters (e.g., 3 or 4 based on the elbow plot)
+optimal_clusters = 3
+kmeans = KMeans(n_clusters=optimal_clusters, init='k-means++', random_state=42)
 data['Cluster'] = kmeans.fit_predict(data_scaled)
 
 # Step 6: Visualize the Clusters
@@ -66,8 +77,16 @@ plt.xlabel('Annual Income (k$)')
 plt.ylabel('Spending Score (1-100)')
 plt.legend(title='Cluster')
 plt.grid()
+
+# Save the cluster plot
+plt.savefig(os.path.join(output_folder, "cluster_plot.png"))
 plt.show()
 
 # Step 7: Interpret the Results
-# Display the data with clusters for interpretation
+# Display the data with cluster assignments
 print("\nClustered Data Sample:\n", data.head())
+
+# Save the clustered data as a CSV file
+output_csv_path = os.path.join(output_folder, "clustered_data.csv")
+data.to_csv(output_csv_path, index=False)
+print(f"\nClustered data saved to {output_csv_path}")
