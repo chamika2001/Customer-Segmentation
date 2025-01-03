@@ -59,4 +59,7 @@ The scatter plot shows customer segments based on annual income and spending sco
    ```bash
    python customer_segmentation.py
    ```
+   
+## License:
+This project is open-source and available under the [MIT License](LICENSE).
 
