@@ -29,3 +29,11 @@ features = ['Age', 'Annual Income (k$)', 'Spending Score (1-100)']
 # Standardizing the data
 scaler = StandardScaler()
 data_scaled = scaler.fit_transform(data[features])
+
+# Determine the Optimal Number of Clusters using Elbow Method
+wcss = []  # Within-cluster sum of squares
+
+for i in range(1, 11):
+    kmeans = KMeans(n_clusters=i, init='k-means++', random_state=42)
+    kmeans.fit(data_scaled)
+    wcss.append(kmeans.inertia_)
