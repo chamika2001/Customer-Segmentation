@@ -51,3 +51,19 @@ plt.show()
 # From the elbow plot, choose an optimal number of clusters (e.g., 3 or 4)
 kmeans = KMeans(n_clusters=3, init='k-means++', random_state=42)
 data['Cluster'] = kmeans.fit_predict(data_scaled)
+
+# Visualize the Clusters
+plt.figure(figsize=(10, 6))
+sns.scatterplot(
+    x=data['Annual Income (k$)'],
+    y=data['Spending Score (1-100)'],
+    hue=data['Cluster'],
+    palette='viridis',
+    s=100,
+)
+plt.title('Customer Segments')
+plt.xlabel('Annual Income (k$)')
+plt.ylabel('Spending Score (1-100)')
+plt.legend(title='Cluster')
+plt.grid()
+plt.show()
