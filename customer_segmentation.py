@@ -18,3 +18,7 @@ except FileNotFoundError:
 print("Dataset Head:\n", data.head())
 print("\nDataset Info:\n")
 print(data.info())
+
+# Data Preprocessing
+# Check for missing values
+print("\nMissing Values:\n", data.isnull().sum())
