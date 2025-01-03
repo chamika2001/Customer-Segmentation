@@ -1,4 +1,4 @@
-# Import Libraries
+# Step 1: Import Libraries
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -6,7 +6,7 @@ import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 
-# Load and Explore the Dataset
+# Step 2: Load and Explore the Dataset
 # Use a CSV file named "customer_data.csv" for this example.
 # Replace the file path with your dataset location.
 try:
@@ -19,7 +19,7 @@ print("Dataset Head:\n", data.head())
 print("\nDataset Info:\n")
 print(data.info())
 
-# Data Preprocessing
+# Step 3: Data Preprocessing
 # Check for missing values
 print("\nMissing Values:\n", data.isnull().sum())
 
@@ -30,7 +30,7 @@ features = ['Age', 'Annual Income (k$)', 'Spending Score (1-100)']
 scaler = StandardScaler()
 data_scaled = scaler.fit_transform(data[features])
 
-# Determine the Optimal Number of Clusters using Elbow Method
+# Step 4: Determine the Optimal Number of Clusters using Elbow Method
 wcss = []  # Within-cluster sum of squares
 
 for i in range(1, 11):
@@ -47,12 +47,12 @@ plt.ylabel('WCSS')
 plt.grid()
 plt.show()
 
-# Apply K-Means Clustering
+# Step 5: Apply K-Means Clustering
 # From the elbow plot, choose an optimal number of clusters (e.g., 3 or 4)
 kmeans = KMeans(n_clusters=3, init='k-means++', random_state=42)
 data['Cluster'] = kmeans.fit_predict(data_scaled)
 
-# Visualize the Clusters
+# Step 6: Visualize the Clusters
 plt.figure(figsize=(10, 6))
 sns.scatterplot(
     x=data['Annual Income (k$)'],
@@ -68,6 +68,6 @@ plt.legend(title='Cluster')
 plt.grid()
 plt.show()
 
-# Interpret the Results
+# Step 7: Interpret the Results
 # Display the data with clusters for interpretation
 print("\nClustered Data Sample:\n", data.head())
