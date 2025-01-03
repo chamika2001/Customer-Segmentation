@@ -8,4 +8,11 @@ This project uses **K-Means clustering** to group customers based on their purch
 - Visualizes customer clusters for better business insights.
 
 ## Project Structure:
-Customer-Segmentation-Project/ ├── customer_segmentation.py # Main Python script ├── customer_data.csv # Input dataset file ├── README.md # Project documentation └── images/ # Folder for output images ├── elbow_method.png └── cluster_plot.png
+Customer-Segmentation-Project/ 
+├── customer_segmentation.py # Main Python script
+├── customer_data.csv # Dataset file
+└── images/ # Folder containing output images 
+│   ├── elbow_method.png 
+│   ├── cluster_plot.png 
+│   └── clustered_data.csv  
+└── README.md
