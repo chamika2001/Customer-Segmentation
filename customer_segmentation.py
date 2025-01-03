@@ -67,3 +67,7 @@ plt.ylabel('Spending Score (1-100)')
 plt.legend(title='Cluster')
 plt.grid()
 plt.show()
+
+# Interpret the Results
+# Display the data with clusters for interpretation
+print("\nClustered Data Sample:\n", data.head())
