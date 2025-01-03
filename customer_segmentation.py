@@ -13,3 +13,8 @@ try:
     data = pd.read_csv("customer_data.csv")  # Add your dataset file here
 except FileNotFoundError:
     print("Dataset not found! Please check the file path.")
+
+# Display basic info about the dataset
+print("Dataset Head:\n", data.head())
+print("\nDataset Info:\n")
+print(data.info())
