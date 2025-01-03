@@ -25,3 +25,7 @@ print("\nMissing Values:\n", data.isnull().sum())
 
 # Selecting relevant features for clustering
 features = ['Age', 'Annual Income (k$)', 'Spending Score (1-100)']
+
+# Standardizing the data
+scaler = StandardScaler()
+data_scaled = scaler.fit_transform(data[features])
